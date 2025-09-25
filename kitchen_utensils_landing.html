@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tox Free Kitchen - Toxin-Free Kitchen Utensils & Cookware</title>
+    <meta name="description" content="Discover toxin-free kitchen utensils and cookware. BPA-free, PFOA-free, and endocrine disruptor-free products for healthy cooking and food preparation.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #ffffff;
+            color: #000000;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #f0f0f0;
+            z-index: 1000;
+            padding: 0 2rem;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000000;
+            font-weight: 500;
+            transition: opacity 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            opacity: 0.6;
+        }
+
+        /* Main Content */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 2rem 60px;
+            flex: 1;
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        /* Home Page Styles */
+        .home-hero {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .home-logo {
+            max-width: 400px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+
+        .home-tagline {
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #333;
+            letter-spacing: -0.5px;
+        }
+
+        /* Products Page Styles */
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            font-weight: 400;
+        }
+
+        .utensils-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 80px;
+        }
+
+        .utensil-card {
+            background: #ffffff;
+            border: 2px solid #f5f5f5;
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .utensil-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.05), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .utensil-card:hover {
+            border-color: #000000;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .utensil-card:hover::before {
+            left: 100%;
+        }
+
+        .utensil-icon {
+            width: 8rem;
+            height: 8rem;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            display: block;
+            transition: transform 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .utensil-card:hover .utensil-icon {
+            transform: scale(1.1);
+        }
+
+        .utensil-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.3px;
+        }
+
+        .utensil-description {
+            color: #666;
+            font-size: 0.95rem;
+            font-weight: 400;
+        }
+
+        /* About Page Styles */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-logo {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+
+        .about-tagline {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 3rem;
+            letter-spacing: -0.3px;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            text-align: left;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Contact Page Styles */
+        .contact-content {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        .contact-logo {
+            max-width: 300px;
+            width: 100%;
+            height: auto;
+            margin-bottom: 3rem;
+        }
+
+        .contact-email {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .copyright {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .utensils-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .utensil-card {
+                padding: 2rem 1.5rem;
+            }
+
+            .utensil-icon {
+                width: 6rem;
+                height: 6rem;
+            }
+
+            .home-logo {
+                max-width: 300px;
+            }
+
+            .home-tagline {
+                font-size: 1.4rem;
+            }
+
+            .about-logo {
+                max-width: 250px;
+            }
+        }
+
+        /* Click animation */
+        .utensil-card:active {
+            transform: translateY(-4px) scale(0.98);
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+            z-index: 2000;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .modal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 16px;
+            padding: 3rem 2.5rem;
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        .modal h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #d63384;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .modal p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .email-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .email-input {
+            padding: 1rem;
+            border: 2px solid #f0f0f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .email-input:focus {
+            outline: none;
+            border-color: #000;
+        }
+
+        .submit-btn {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #333;
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #999;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .success-message {
+            display: none;
+            color: #28a745;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        .error-message {
+            display: none;
+            color: #dc3545;
+            font-weight: 600;
+            margin-top: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { 
+                transform: translate(-50%, -50%) translateY(30px);
+                opacity: 0;
+            }
+            to { 
+                transform: translate(-50%, -50%) translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Tox Free Kitchen</div>
+            <ul class="nav-links">
+                <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('products')" id="nav-products">Products</a></li>
+                <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
+                <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Home Page -->
+        <section id="home" class="page-section active">
+            <div class="home-hero">
+                <img src="https://i.imgur.com/wkSp5ex.jpeg" alt="Tox Free Kitchen - Premium Toxin-Free Kitchen Utensils and Cookware for Healthy Living" class="home-logo">
+                <p class="home-tagline">Elegant Design with Health in Mind</p>
+            </div>
+        </section>
+
+        <!-- Products Page -->
+        <section id="products" class="page-section">
+            <div class="hero">
+                <h1>Tox Free Kitchen Essentials</h1>
+                <p>Pure, safe, and sustainable tools for healthy cooking</p>
+            </div>
+
+            <div class="utensils-grid">
+                <div class="utensil-card" onclick="selectUtensil('stainless-knife')">
+                    <img src="https://i.imgur.com/eKFDOT5.jpeg" alt="Stainless Steel Knife" class="utensil-icon">
+                    <h3 class="utensil-name">Stainless Steel Knife</h3>
+                    <p class="utensil-description">Non-reactive, ultra-sharp stainless steel blade</p>
+                </div>
+
+                <div class="utensil-card" onclick="selectUtensil('bamboo-board')">
+                    <img src="https://i.imgur.com/gCwS9Bz.jpeg" alt="Bamboo Board" class="utensil-icon">
+                    <h3 class="utensil-name">Bamboo Board</h3>
+                    <p class="utensil-description">Sustainable, naturally antimicrobial surface</p>
+                </div>
+
+                <div class="utensil-card" onclick="selectUtensil('wooden-utensils')">
+                    <img src="https://i.imgur.com/wn2YNtG.jpeg" alt="Wooden Utensils" class="utensil-icon">
+                    <h3 class="utensil-name">Wooden Utensils</h3>
+                    <p class="utensil-description">Natural hardwood tools, gentle on cookware</p>
+                </div>
+
+                <div class="utensil-card" onclick="selectUtensil('stainless-frying-pan')">
+                    <img src="https://i.imgur.com/LHyhFBQ.jpeg" alt="Stainless Steel Frying Pan" class="utensil-icon">
+                    <h3 class="utensil-name">Stainless Steel Frying Pan</h3>
+                    <p class="utensil-description">PFOA-free, even heat distribution</p>
+                </div>
+
+                <div class="utensil-card" onclick="selectUtensil('stainless-measuring')">
+                    <img src="https://i.imgur.com/tmYY75O.jpeg" alt="Stainless Steel Measuring Cups" class="utensil-icon">
+                    <h3 class="utensil-name">Stainless Steel Measuring Cups</h3>
+                    <p class="utensil-description">Durable steel construction, precise measurements</p>
+                </div>
+
+                <div class="utensil-card" onclick="selectUtensil('stainless-tongs')">
+                    <img src="https://i.imgur.com/KmnIMh3.jpeg" alt="Stainless Steel Tongs" class="utensil-icon">
+                    <h3 class="utensil-name">Stainless Steel Tongs</h3>
+                    <p class="utensil-description">Premium steel with fine wooden handle</p>
+                </div>
+
+                <div class="utensil-card" onclick="selectUtensil('cutlery-set')">
+                    <img src="https://i.imgur.com/wiWaF5q.jpeg" alt="Stainless Steel Cutlery Set" class="utensil-icon">
+                    <h3 class="utensil-name">Stainless Steel Cutlery Set</h3>
+                    <p class="utensil-description">Complete dining set, dishwasher safe</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Page -->
+        <section id="about" class="page-section">
+            <div class="about-content">
+                <img src="https://i.imgur.com/wkSp5ex.jpeg" alt="Tox Free Kitchen Logo - Safe Kitchen Utensils" class="about-logo">
+                <p class="about-tagline">Elegant Design with Health in Mind</p>
+                
+                <div class="about-text">
+                    <p>My name is Elizabeth, and I'm passionate about creating safer kitchen environments for families everywhere. After years of research into the hidden dangers lurking in our everyday cooking tools, I discovered the alarming truth about BPAs, lacquers, and other endocrine disruptors commonly found in cheap kitchen utensils and cookware.</p>
+                    
+                    <p>These harmful chemicals don't just sit quietly in our tools—they leach into our food, affecting both men's and women's hormones in ways that can impact our health for years to come. The reality is that no one should have to worry about eating plastic particles or absorbing toxic chemicals while preparing meals for their loved ones.</p>
+                    
+                    <p>When my husband and I started our own family, we began searching for truly toxin-free kitchen tools that wouldn't compromise our health or our children's wellbeing. What we found was frustrating—a market flooded with products claiming to be "safe" but still containing questionable materials, or truly safe options that were either impossible to find or prohibitively expensive.</p>
+                    
+                    <p>That's when we decided to take matters into our own hands. We spent months researching materials, testing products, and building relationships with manufacturers who shared our commitment to health and safety. Tox Free Kitchen was born from our determination to make genuinely safe, beautiful, and functional kitchen tools accessible to everyone.</p>
+                    
+                    <p>Today, Tox Free Kitchen is proud to provide carefully curated options for families looking to safeguard their health without sacrificing style or functionality. Every product we offer has been rigorously tested and meets our strict standards for purity, durability, and design. We believe that cooking healthy meals should start with healthy tools, and we're here to make that possible for your family.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Page -->
+        <section id="contact" class="page-section">
+            <div class="contact-content">
+                <img src="https://i.imgur.com/wkSp5ex.jpeg" alt="Tox Free Kitchen Contact Information" class="contact-logo">
+                <div class="contact-email">hello@toxfreekitchen.com</div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p class="copyright">© 2024 Tox Free Kitchen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div id="soldOutModal" class="modal-overlay">
+        <div class="modal">
+            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <h2>SOLD OUT</h2>
+            <p>Don't worry, we're working hard to restock! Enter your email to get notified when we're back in stock!</p>
+            
+            <form class="email-form" onsubmit="submitEmail(event)">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Enter your email address" 
+                    required 
+                    id="emailInput"
+                >
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Notify Me!
+                </button>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                Thanks! We'll notify you as soon as it's back in stock! 🎉
+            </div>
+            <div class="error-message" id="errorMessage">
+                Oops! Something went wrong. Please try again.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            // Hide all page sections
+            const sections = document.querySelectorAll('.page-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show the selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation active state
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+            document.getElementById('nav-' + pageId).classList.add('active');
+            
+            // Update page title
+            const titles = {
+                'home': 'Tox Free Kitchen - Toxin-Free Kitchen Utensils & Cookware',
+                'products': 'Products - Tox Free Kitchen',
+                'about': 'About Us - Tox Free Kitchen',
+                'contact': 'Contact Us - Tox Free Kitchen'
+            };
+            document.title = titles[pageId];
+        }
+
+        function selectUtensil(utensilType) {
+            // Add a subtle click feedback
+            const clickedCard = event.currentTarget;
+            clickedCard.style.transform = 'translateY(-4px) scale(0.98)';
+            
+            setTimeout(() => {
+                clickedCard.style.transform = '';
+            }, 150);
+
+            // Show sold out modal
+            document.getElementById('soldOutModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeModal() {
+            document.getElementById('soldOutModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // Restore scrolling
+            
+            // Reset form
+            document.getElementById('emailInput').value = '';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('submitBtn').disabled = false;
+            document.getElementById('submitBtn').textContent = 'Notify Me!';
+        }
+
+        async function submitEmail(event) {
+            event.preventDefault();
+            
+            const emailInput = document.getElementById('emailInput');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            const email = emailInput.value.trim();
+            
+            if (!email) return;
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            try {
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbx7AHssiTX7weCMwV_c-v4_PllcgHquzSiq9bHpQU5jrrBBCnlV3clcB2xpYertGcDu/exec';
+                
+                const response = await fetch(scriptURL, {
+                    method: 'POST',
+                    mode: 'no-cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        timestamp: new Date().toISOString(),
+                        product: 'General Interest'
+                    })
+                });
+
+                // Since we're using no-cors mode, we'll assume success
+                successMessage.style.display = 'block';
+                emailInput.style.display = 'none';
+                submitBtn.style.display = 'none';
+                
+                // Close modal after 3 seconds
+                setTimeout(() => {
+                    closeModal();
+                    emailInput.style.display = 'block';
+                    submitBtn.style.display = 'block';
+                }, 3000);
+                
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Notify Me!';
+            }
+        }
+
+        // Close modal when clicking outside of it
+        document.getElementById('soldOutModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        // Initialize with Home page
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('home');
+        });
+    </script>
+</body>
+</html>
