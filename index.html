@@ -298,7 +298,9 @@
             }
 
             .logo {
-                font-size: 0.95rem;
+                font-size: 0.7rem;
+                line-height: 1.2;
+                max-width: 70px;
             }
 
             .nav-links {
@@ -383,7 +385,8 @@
 
         @media (max-width: 480px) {
             .logo {
-                font-size: 0.85rem;
+                font-size: 0.65rem;
+                max-width: 60px;
             }
 
             .nav-links {
@@ -456,6 +459,33 @@
             line-height: 1.6;
         }
 
+        /* Discount Modal Specific Styles */
+        .discount-modal h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #000;
+            margin-bottom: 0.5rem;
+        }
+
+        .discount-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            font-size: 3rem;
+            font-weight: 900;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .discount-modal p {
+            font-size: 1.15rem;
+            color: #333;
+            margin-bottom: 2rem;
+        }
+
         .email-form {
             display: flex;
             flex-direction: column;
@@ -491,9 +521,32 @@
             background: #333;
         }
 
-        .submit-btn:disabled {
+        .discount-submit-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .discount-submit-btn:hover {
+            background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .submit-btn:disabled,
+        .discount-submit-btn:disabled {
             background: #ccc;
             cursor: not-allowed;
+            transform: none;
         }
 
         .close-btn {
@@ -541,7 +594,21 @@
                 font-size: 1.5rem;
             }
 
+            .discount-modal h2 {
+                font-size: 1.8rem;
+            }
+
+            .discount-badge {
+                font-size: 2.2rem;
+                padding: 0.8rem 1.5rem;
+            }
+
             .modal p {
+                font-size: 1rem;
+            }
+
+            .discount-submit-btn {
+                padding: 1rem 2rem;
                 font-size: 1rem;
             }
         }
@@ -569,8 +636,8 @@
         <div class="nav-container">
             <div class="logo">Tox Free Kitchen</div>
             <ul class="nav-links">
-                <li><a href="#" onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
-                <li><a href="#" onclick="showPage('products')" id="nav-products">Products</a></li>
+                <li><a href="#" onclick="showPage('home')" id="nav-home">Home</a></li>
+                <li><a href="#" onclick="showPage('products')" id="nav-products" class="active">Products</a></li>
                 <li><a href="#" onclick="showPage('about')" id="nav-about">About</a></li>
                 <li><a href="#" onclick="showPage('contact')" id="nav-contact">Contact</a></li>
             </ul>
@@ -580,7 +647,7 @@
     <!-- Main Content -->
     <div class="main-container">
         <!-- Home Page -->
-        <section id="home" class="page-section active">
+        <section id="home" class="page-section">
             <div class="home-hero">
                 <img src="https://i.imgur.com/wkSp5ex.jpeg" alt="Tox Free Kitchen - Premium Toxin-Free Kitchen Utensils and Cookware for Healthy Living" class="home-logo">
                 <p class="home-tagline">Elegant Design with Health in Mind</p>
@@ -588,7 +655,7 @@
         </section>
 
         <!-- Products Page -->
-        <section id="products" class="page-section">
+        <section id="products" class="page-section active">
             <div class="hero">
                 <h1>Tox Free Kitchen Essentials</h1>
                 <p>Pure, safe, and sustainable tools for healthy cooking</p>
@@ -670,7 +737,7 @@
         <section id="contact" class="page-section">
             <div class="contact-content">
                 <img src="https://i.imgur.com/wkSp5ex.jpeg" alt="Tox Free Kitchen Contact Information" class="contact-logo">
-                <div class="contact-email">info@toxfreekitchen.com</div>
+                <div class="contact-email">hello@toxfreekitchen.com</div>
             </div>
         </section>
     </div>
@@ -682,14 +749,14 @@
         </div>
     </footer>
 
-    <!-- Modal -->
+    <!-- Sold Out Modal -->
     <div id="soldOutModal" class="modal-overlay">
         <div class="modal">
-            <button class="close-btn" onclick="closeModal()">&times;</button>
+            <button class="close-btn" onclick="closeModal('soldOutModal')">&times;</button>
             <h2>SOLD OUT</h2>
             <p>Don't worry, we're working hard to restock! Enter your email to get notified when we're back in stock!</p>
             
-            <form class="email-form" onsubmit="submitEmail(event)">
+            <form class="email-form" onsubmit="submitEmail(event, 'soldOut')">
                 <input 
                     type="email" 
                     class="email-input" 
@@ -711,25 +778,54 @@
         </div>
     </div>
 
+    <!-- Discount Popup Modal -->
+    <div id="discountModal" class="modal-overlay">
+        <div class="modal discount-modal">
+            <button class="close-btn" onclick="closeModal('discountModal')">&times;</button>
+            <h2>LIMITED TIME OFFER!</h2>
+            <div class="discount-badge">10% OFF</div>
+            <p>Get 10% off your first order! Enter your email to claim your exclusive discount code.</p>
+            
+            <form class="email-form" onsubmit="submitEmail(event, 'discount')">
+                <input 
+                    type="email" 
+                    class="email-input" 
+                    placeholder="Enter your email address" 
+                    required 
+                    id="discountEmailInput"
+                >
+                <button type="submit" class="discount-submit-btn" id="discountSubmitBtn">
+                    Grab My 10% Off!
+                </button>
+            </form>
+            
+            <div class="success-message" id="discountSuccessMessage">
+                Success! Check your email for your 10% discount code! 🎉
+            </div>
+            <div class="error-message" id="discountErrorMessage">
+                Oops! Something went wrong. Please try again.
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Track if discount popup has been shown
+        let discountPopupShown = false;
+
         function showPage(pageId) {
-            // Hide all page sections
             const sections = document.querySelectorAll('.page-section');
             sections.forEach(section => {
                 section.classList.remove('active');
             });
             
-            // Show the selected page
             document.getElementById(pageId).classList.add('active');
             
-            // Update navigation active state
             const navLinks = document.querySelectorAll('.nav-links a');
             navLinks.forEach(link => {
                 link.classList.remove('active');
             });
             document.getElementById('nav-' + pageId).classList.add('active');
             
-            // Update page title
             const titles = {
                 'home': 'Tox Free Kitchen - Toxin-Free Kitchen Utensils & Cookware',
                 'products': 'Products - Tox Free Kitchen',
@@ -740,7 +836,6 @@
         }
 
         function selectUtensil(utensilType) {
-            // Add a subtle click feedback
             const clickedCard = event.currentTarget;
             clickedCard.style.transform = 'translateY(-4px) scale(0.98)';
             
@@ -748,36 +843,50 @@
                 clickedCard.style.transform = '';
             }, 150);
 
-            // Show sold out modal
             document.getElementById('soldOutModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            document.body.style.overflow = 'hidden';
         }
 
-        function closeModal() {
-            document.getElementById('soldOutModal').style.display = 'none';
-            document.body.style.overflow = 'auto'; // Restore scrolling
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
             
-            // Reset form
-            document.getElementById('emailInput').value = '';
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
-            document.getElementById('submitBtn').disabled = false;
-            document.getElementById('submitBtn').textContent = 'Notify Me!';
+            if (modalId === 'soldOutModal') {
+                document.getElementById('emailInput').value = '';
+                document.getElementById('successMessage').style.display = 'none';
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').textContent = 'Notify Me!';
+            } else if (modalId === 'discountModal') {
+                document.getElementById('discountEmailInput').value = '';
+                document.getElementById('discountSuccessMessage').style.display = 'none';
+                document.getElementById('discountErrorMessage').style.display = 'none';
+                document.getElementById('discountSubmitBtn').disabled = false;
+                document.getElementById('discountSubmitBtn').textContent = 'Grab My 10% Off!';
+            }
         }
 
-        async function submitEmail(event) {
+        async function submitEmail(event, type) {
             event.preventDefault();
             
-            const emailInput = document.getElementById('emailInput');
-            const submitBtn = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('successMessage');
-            const errorMessage = document.getElementById('errorMessage');
+            let emailInput, submitBtn, successMessage, errorMessage;
+            
+            if (type === 'discount') {
+                emailInput = document.getElementById('discountEmailInput');
+                submitBtn = document.getElementById('discountSubmitBtn');
+                successMessage = document.getElementById('discountSuccessMessage');
+                errorMessage = document.getElementById('discountErrorMessage');
+            } else {
+                emailInput = document.getElementById('emailInput');
+                submitBtn = document.getElementById('submitBtn');
+                successMessage = document.getElementById('successMessage');
+                errorMessage = document.getElementById('errorMessage');
+            }
             
             const email = emailInput.value.trim();
             
             if (!email) return;
             
-            // Disable button and show loading
             submitBtn.disabled = true;
             submitBtn.textContent = 'Submitting...';
             
@@ -793,18 +902,16 @@
                     body: JSON.stringify({
                         email: email,
                         timestamp: new Date().toISOString(),
-                        product: 'General Interest'
+                        product: type === 'discount' ? '10% Discount Sign Up' : 'General Interest'
                     })
                 });
 
-                // Since we're using no-cors mode, we'll assume success
                 successMessage.style.display = 'block';
                 emailInput.style.display = 'none';
                 submitBtn.style.display = 'none';
                 
-                // Close modal after 3 seconds
                 setTimeout(() => {
-                    closeModal();
+                    closeModal(type === 'discount' ? 'discountModal' : 'soldOutModal');
                     emailInput.style.display = 'block';
                     submitBtn.style.display = 'block';
                 }, 3000);
@@ -813,20 +920,34 @@
                 console.error('Error:', error);
                 errorMessage.style.display = 'block';
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Notify Me!';
+                submitBtn.textContent = type === 'discount' ? 'Grab My 10% Off!' : 'Notify Me!';
             }
         }
 
-        // Close modal when clicking outside of it
         document.getElementById('soldOutModal').addEventListener('click', function(event) {
             if (event.target === this) {
-                closeModal();
+                closeModal('soldOutModal');
             }
         });
 
-        // Initialize with Home page
+        document.getElementById('discountModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal('discountModal');
+            }
+        });
+
+        // Show discount popup after 10 seconds
+        setTimeout(() => {
+            if (!discountPopupShown) {
+                document.getElementById('discountModal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                discountPopupShown = true;
+            }
+        }, 10000);
+
+        // Initialize with Products page
         document.addEventListener('DOMContentLoaded', function() {
-            showPage('home');
+            showPage('products');
         });
     </script>
 </body>
