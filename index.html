@@ -662,10 +662,10 @@
             </div>
 
             <div class="utensils-grid">
-                <div class="utensil-card" onclick="selectUtensil('stainless-knife')">
-                    <img src="https://i.imgur.com/eKFDOT5.jpeg" alt="Stainless Steel Knife" class="utensil-icon">
-                    <h3 class="utensil-name">Stainless Steel Knife</h3>
-                    <p class="utensil-description">Non-reactive, ultra-sharp stainless steel blade</p>
+                <div class="utensil-card" onclick="selectUtensil('glass-containers')">
+                    <img src="https://i.imgur.com/45JCZMs.jpeg" alt="Glass Storage Containers" class="utensil-icon">
+                    <h3 class="utensil-name">Glass Storage Containers</h3>
+                    <p class="utensil-description">BPA-free glass with natural bamboo lid</p>
                     <div class="utensil-price">$34.99</div>
                 </div>
 
@@ -737,7 +737,7 @@
         <section id="contact" class="page-section">
             <div class="contact-content">
                 <img src="https://i.imgur.com/wkSp5ex.jpeg" alt="Tox Free Kitchen Contact Information" class="contact-logo">
-                <div class="contact-email">hello@toxfreekitchen.com</div>
+                <div class="contact-email">info@toxfreekitchen.com</div>
             </div>
         </section>
     </div>
@@ -936,14 +936,14 @@
             }
         });
 
-        // Show discount popup after 10 seconds
+        // Show discount popup after 10 seconds (MODIFIED)
         setTimeout(() => {
             if (!discountPopupShown) {
                 document.getElementById('discountModal').style.display = 'block';
                 document.body.style.overflow = 'hidden';
                 discountPopupShown = true;
             }
-        }, 10000);
+        }, 100000000000);
 
         // Initialize with Products page
         document.addEventListener('DOMContentLoaded', function() {
