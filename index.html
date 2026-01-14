@@ -442,6 +442,10 @@
                 el.style.display = 'none';
             });
         }
+        // Define function BEFORE using it
+        function shouldShowDiscountPopup() {
+            return !localStorage.getItem('discountPopupShown');
+        }
 
         setTimeout(() => {
             if (shouldShowDiscountPopup()) {
