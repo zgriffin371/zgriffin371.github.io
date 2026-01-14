@@ -407,7 +407,7 @@
     </script> -->
 
     <script>
-        let discountPopupShown = false;
+        // let discountPopupShown = false;
 
         function showPage(id) {
             document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
@@ -444,13 +444,14 @@
         }
 
         setTimeout(() => {
-            if (!discountPopupShown) {
+            if (shouldShowDiscountPopup()) {
                 document.getElementById('discountModal').style.display = 'block';
                 document.body.style.overflow = 'hidden';
-                discountPopupShown = true;
+                // Mark as shown in localStorage
+                localStorage.setItem('discountPopupShown', 'true');
             }
-        }, 10000); // 10,000 milliseconds = 10 seconds
-
+        }, 10000); // 10 seconds
+        
         document.addEventListener('DOMContentLoaded', () => showPage('products'));
     </script>
 </body>
